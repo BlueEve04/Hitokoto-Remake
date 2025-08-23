@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="280dp"
+    android:layout_height="400dp"
+    android:layout_margin="16dp"
+    card_view:cardCornerRadius="24dp"
+    card_view:cardElevation="8dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="24dp">
+
+        <TextView
+            android:id="@+id/cardText"
+            android:fontFamily="@font/hrd"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textSize="22sp"
+
+            android:scrollbars="vertical"
+            android:scrollbarStyle="insideInset"
+            android:overScrollMode="always"
+            android:textColor="@color/setting_title"
+            android:text="每日一言"/>
+
+        <TextView
+            android:id="@+id/cardFrom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:textColor="@color/setting_subtitle"
+            android:text="—— 出处"/>
+
+        <TextView
+            android:id="@+id/cardFromWho"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:textColor="@color/setting_subtitle"
+            android:text="角色/作者"/>
+
+        <TextView
+            android:id="@+id/cardCreator"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:textColor="@color/setting_subtitle"
+            android:text="录入者"/>
+
+
+
+    </LinearLayout>
+
+
+</androidx.cardview.widget.CardView>

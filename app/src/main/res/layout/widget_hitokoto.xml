@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/widget_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_widget_white"
+    android:padding="12dp"
+    android:clickable="true"
+    android:focusable="true"
+    app:layout_constraintCircleRadius="10dp">
+
+
+
+        <TextView
+            android:id="@+id/tv_hitokoto"
+            android:textFontWeight="600"
+            android:scrollbarStyle="insideInset"
+            android:overScrollMode="always"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:fontFamily="sans-serif"
+            android:gravity="center_horizontal"
+            android:maxLines="4"
+            android:text="一言内容"
+            android:textColor="@color/TextPrimary"
+            android:textSize="20sp" />
+
+
+    <TextView
+        android:id="@+id/tv_from"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_hitokoto"
+        android:layout_centerHorizontal="true"
+        android:gravity="center_horizontal"
+        android:text="—— 出处"
+        android:textColor="@color/TextSecondary"
+        android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/tv_author"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_from"
+            android:text="作者"
+            android:textSize="12sp"
+            android:textColor="@color/TextSecondary"
+            android:layout_marginTop="2dp"
+            android:gravity="center_horizontal"
+            android:layout_centerHorizontal="true"/>
+
+    <ImageButton
+        android:id="@+id/btn_fav"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="0dp"
+        android:layout_toStartOf="@+id/btn_copy"
+        android:background="@android:color/transparent"
+        android:contentDescription="收藏"
+        android:scaleType="fitCenter"
+        android:src="@drawable/ic_favico" />
+
+    <ImageButton
+            android:id="@+id/btn_copy"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:scaleType="fitCenter"
+            android:layout_marginBottom="0dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_cache"
+            android:contentDescription="复制"/>
+
+
+
+</RelativeLayout>

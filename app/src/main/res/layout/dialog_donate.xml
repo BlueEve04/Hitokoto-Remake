@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:padding="24dp"
+    android:gravity="center_horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/donate_img"
+        android:layout_width="170dp"
+        android:layout_height="170dp"
+        android:src="@drawable/buy_me_coffee"
+        android:layout_gravity="center_horizontal"
+        android:contentDescription="捐赠图片"
+        android:layout_marginBottom="16dp"/>
+
+    <TextView
+        android:id="@+id/donate_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="感谢您的支持！您的捐赠将帮助Breezy持续改进。"
+        android:textSize="16sp"
+        android:textAlignment="center"
+        android:gravity="center"/>
+</LinearLayout>
+
