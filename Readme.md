@@ -14,3 +14,4 @@
 ### 如您是原创句子的作者，这意味着一言是在经过您的确认后获得了拷贝、分发、出版、商业使用等长期授予的权限。当然，如果您想要移除您提交过的句子，我们依旧尊重您的著作权——移除相关句子。
 ### 一言-sentences-bundle由系统自动维护，这意味他们不受理任何 issues, pull request。如果您有相关问题，请通过电邮或者工单系统向他们反馈。
 其他条款待补充。
+<img src=app/src/main/res/drawable/buy_me_coffee.png alt="hitokoto_ico" style="zoom:100%;" />
