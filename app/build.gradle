@@ -10,8 +10,8 @@ android {
         applicationId "com.blueeve.hitokoto"
         minSdk 24
         targetSdk 36
-        versionCode 1
-        versionName "1.0"
+        versionCode 104000
+        versionName "1.4-alpha"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
