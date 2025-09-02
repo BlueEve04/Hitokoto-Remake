@@ -88,17 +88,55 @@ public class HitokotoCardAdapter extends RecyclerView.Adapter<HitokotoCardAdapte
             }, null);
             return true;
         });
-        // 支持手指滚动内容
+        // 支持手指滚动内容，重写滑动逻辑
         holder.textView.setMovementMethod(new android.text.method.ScrollingMovementMethod());
         holder.textView.setVerticalScrollBarEnabled(true);
         holder.textView.setFocusable(true);
         holder.textView.setFocusableInTouchMode(true);
-        holder.textView.setOnTouchListener((v, event) -> {
-            v.getParent().requestDisallowInterceptTouchEvent(true);
-            if ((event.getAction() & android.view.MotionEvent.ACTION_MASK) == android.view.MotionEvent.ACTION_UP) {
-                v.getParent().requestDisallowInterceptTouchEvent(false);
+        holder.textView.setOnTouchListener(new View.OnTouchListener() {
+            float startX = 0;
+            float startY = 0;
+            boolean isVertical = false;
+            boolean isDecided = false;
+            @Override
+            public boolean onTouch(View v, android.view.MotionEvent event) {
+                switch (event.getActionMasked()) {
+                    case android.view.MotionEvent.ACTION_DOWN:
+                        startX = event.getX();
+                        startY = event.getY();
+                        isDecided = false;
+                        isVertical = false;
+                        v.getParent().requestDisallowInterceptTouchEvent(true);
+                        break;
+                    case android.view.MotionEvent.ACTION_MOVE:
+                        float dx = Math.abs(event.getX() - startX);
+                        float dy = Math.abs(event.getY() - startY);
+                        if (!isDecided) {
+                            if (dx > dy) {
+                                // 横向滑动，允许RecyclerView拦截
+                                v.getParent().requestDisallowInterceptTouchEvent(false);
+                                isVertical = false;
+                                isDecided = true;
+                            } else if (dy > dx) {
+                                // 纵向滑动，禁止RecyclerView拦截
+                                v.getParent().requestDisallowInterceptTouchEvent(true);
+                                isVertical = true;
+                                isDecided = true;
+                            }
+                        }
+                        break;
+                    case android.view.MotionEvent.ACTION_UP:
+                    case android.view.MotionEvent.ACTION_CANCEL:
+                        v.getParent().requestDisallowInterceptTouchEvent(false);
+                        isDecided = false;
+                        if (event.getActionMasked() == android.view.MotionEvent.ACTION_UP && !isVertical) {
+                            v.performClick();
+                        }
+                        break;
+                }
+                // 纵向滑动时让TextView消费事件，横向时不消费
+                return isVertical;
             }
-            return false;
         });
     }
     @Override

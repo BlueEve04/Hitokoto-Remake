@@ -20,9 +20,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHolder> {
+public class  SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHolder> {
 
-    private final List<SettingsItem> items;
+    private final List <SettingsItem> items;
     private final Context context;
 
     public SettingsAdapter(Context context, List<SettingsItem> items) {

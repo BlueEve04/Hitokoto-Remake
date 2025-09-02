@@ -105,19 +105,55 @@ public class MainActivity extends AppCompatActivity {
                 if (newState == RecyclerView.SCROLL_STATE_IDLE) { // 滚动停止时
                     int first = layoutManager.findFirstVisibleItemPosition();
                     int last = layoutManager.findLastVisibleItemPosition();
-                    int center = first + (last - first) / 2; // 当前中心卡片索引
-                    /////操操擦就是这里上次炸了
-                    if (center != lastCenterPos) { // 中心卡片变了，说明翻动了一张
-                        int newIdx = windowIndices.getLast() + 1; // 新索引 = 末尾 + 1
-                        contentCache.put(newIdx, HitokotoProvider.getRandomHitokoto(MainActivity.this));
-                        colorCache.put(newIdx, getRandomMonetColor());
-                        windowIndices.addLast(newIdx);
+                    int center = first + (last - first) / 2; // 当前中心卡片在windowIndices中的位置
+                    if (center < 0 || center >= windowIndices.size()) return;
+                    int centerGlobalIdx = windowIndices.get(center); // 当前中心卡片的全局索引
 
-                        updateWindowData();
-                        adapter.notifyItemInserted(windowIndices.size() - 1);
-
-                        lastCenterPos = center; // 更新记录
+                    // 1. 先补充两侧，保证center两侧各不少于9张
+                    while (windowIndices.getFirst() > centerGlobalIdx - 9) {
+                        int newIdx = windowIndices.getFirst() - 1;
+                        if (!contentCache.containsKey(newIdx)) {
+                            contentCache.put(newIdx, HitokotoProvider.getRandomHitokoto(MainActivity.this));
+                            colorCache.put(newIdx, getRandomMonetColor());
+                        }
+                        windowIndices.addFirst(newIdx);
                     }
+                    while (windowIndices.getLast() < centerGlobalIdx + 9) {
+                        int newIdx = windowIndices.getLast() + 1;
+                        if (!contentCache.containsKey(newIdx)) {
+                            contentCache.put(newIdx, HitokotoProvider.getRandomHitokoto(MainActivity.this));
+                            colorCache.put(newIdx, getRandomMonetColor());
+                        }
+                        windowIndices.addLast(newIdx);
+                    }
+                    // 2. 再裁剪两侧，保证center两侧各不少于5张，且总长度不超过19
+                    while (windowIndices.size() > 19 && center - 1 > 5 && windowIndices.getFirst() < centerGlobalIdx - 9) {
+                        windowIndices.removeFirst();
+                        center--;
+                    }
+                    while (windowIndices.size() > 19 && windowIndices.size() - center - 1 > 5 && windowIndices.getLast() > centerGlobalIdx + 9) {
+                        windowIndices.removeLast();
+                    }
+                    // 3. 最后保证center两侧各不少于5张
+                    while (center < 5) {
+                        int newIdx = windowIndices.getFirst() - 1;
+                        if (!contentCache.containsKey(newIdx)) {
+                            contentCache.put(newIdx, HitokotoProvider.getRandomHitokoto(MainActivity.this));
+                            colorCache.put(newIdx, getRandomMonetColor());
+                        }
+                        windowIndices.addFirst(newIdx);
+                        center++;
+                    }
+                    while (windowIndices.size() - center - 1 < 5) {
+                        int newIdx = windowIndices.getLast() + 1;
+                        if (!contentCache.containsKey(newIdx)) {
+                            contentCache.put(newIdx, HitokotoProvider.getRandomHitokoto(MainActivity.this));
+                            colorCache.put(newIdx, getRandomMonetColor());
+                        }
+                        windowIndices.addLast(newIdx);
+                    }
+                    updateWindowData();
+                    adapter.notifyDataSetChanged();
                 }
             }
         });
@@ -167,6 +203,12 @@ public class MainActivity extends AppCompatActivity {
                 findViewById(R.id.fragment_container).setVisibility(View.GONE);
             }
         });
+//         动态设置标题字体大小，宽度的7%作为sp（可根据实际需求调整）
+        android.widget.TextView titleTextView = findViewById(R.id.titleTextView);
+        float screenWidth = getResources().getDisplayMetrics().widthPixels;
+        float scaledDensity = getResources().getDisplayMetrics().scaledDensity;
+        float titleSp = Math.max(22, Math.min(48, screenWidth * 0.17f / scaledDensity));
+        titleTextView.setTextSize(android.util.TypedValue.COMPLEX_UNIT_SP, titleSp);
     }
 
     // 更新adapter的数据
