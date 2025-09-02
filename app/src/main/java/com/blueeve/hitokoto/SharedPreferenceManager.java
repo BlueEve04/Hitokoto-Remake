@@ -10,12 +10,15 @@ public class SharedPreferenceManager {
     private static final String KEY_FONT_TYPE = "font_type";
     private static final String KEY_FONT_SIZE = "font_size";
     private static final String KEY_COLOR_STYLE = "color_style"; // 0=莫奈柔和, 1=鲜艳
-
+    private static final String KEY_UPDATE_LEVEL = "update_level"; // 0= 未打开 1=打开过
     public static boolean isColorfulCardEnabled(Context context) {
         SharedPreferences prefs = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
         return prefs.getBoolean(KEY_COLORFUL_CARD, true); // 默认开启彩色卡片
     }
-
+    public static int updatelevel(Context context){
+        SharedPreferences prefs = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
+        return prefs.getInt(KEY_UPDATE_LEVEL, 0);
+    }
     public static void setColorfulCardEnabled(Context context, boolean enabled) {
         SharedPreferences prefs = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
         prefs.edit().putBoolean(KEY_COLORFUL_CARD, enabled).apply();
@@ -59,5 +62,9 @@ public class SharedPreferenceManager {
     public static void setColorStyle(Context context, int style) {
         SharedPreferences prefs = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
         prefs.edit().putInt(KEY_COLOR_STYLE, style).apply();
+    }
+    public static void setKeyUpdateLevel(Context context, int level) {
+        SharedPreferences prefs = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
+        prefs.edit().putInt(KEY_UPDATE_LEVEL, level).apply();
     }
 }

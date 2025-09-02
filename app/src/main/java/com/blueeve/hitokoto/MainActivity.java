@@ -1,5 +1,7 @@
 package com.blueeve.hitokoto;
 //黄令东齐伋体
+import static com.blueeve.hitokoto.SharedPreferenceManager.updatelevel;
+
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -72,6 +74,13 @@ public class MainActivity extends AppCompatActivity {
             androidx.appcompat.app.AppCompatDelegate.setDefaultNightMode(androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_NO);
         } else if (themeMode == android.app.UiModeManager.MODE_NIGHT_YES) {
             androidx.appcompat.app.AppCompatDelegate.setDefaultNightMode(androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_YES);
+        }
+        int isOpened=SharedPreferenceManager.updatelevel(this);
+        if(isOpened==0){
+            Toast.makeText(this, "欢迎使用一言！", Toast.LENGTH_LONG).show();
+            SharedPreferenceManager.setKeyUpdateLevel(this,1);
+        }else{
+            Toast.makeText(this , "欢迎回来！-TEST", Toast.LENGTH_SHORT).show();
         }
         recyclerView = findViewById(R.id.recyclerView);
         layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
