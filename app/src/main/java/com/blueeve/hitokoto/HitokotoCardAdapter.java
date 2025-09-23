@@ -100,6 +100,7 @@ public class HitokotoCardAdapter extends RecyclerView.Adapter<HitokotoCardAdapte
             boolean isDecided = false;
             @Override
             public boolean onTouch(View v, android.view.MotionEvent event) {
+                final float threshold = v.getContext().getResources().getDisplayMetrics().density * 8; // 8dp
                 switch (event.getActionMasked()) {
                     case android.view.MotionEvent.ACTION_DOWN:
                         startX = event.getX();
@@ -111,16 +112,23 @@ public class HitokotoCardAdapter extends RecyclerView.Adapter<HitokotoCardAdapte
                     case android.view.MotionEvent.ACTION_MOVE:
                         float dx = Math.abs(event.getX() - startX);
                         float dy = Math.abs(event.getY() - startY);
-                        if (!isDecided) {
+                        if (!isDecided && (dx > threshold || dy > threshold)) {
+                            boolean canScrollVertically = ((android.widget.TextView)v).getLayout() != null &&
+                                ((android.widget.TextView)v).getLayout().getHeight() < ((android.widget.TextView)v).getLayout().getLineTop(((android.widget.TextView)v).getLineCount());
                             if (dx > dy) {
                                 // 横向滑动，允许RecyclerView拦截
                                 v.getParent().requestDisallowInterceptTouchEvent(false);
                                 isVertical = false;
                                 isDecided = true;
-                            } else if (dy > dx) {
-                                // 纵向滑动，禁止RecyclerView拦截
+                            } else if (dy > dx && canScrollVertically) {
+                                // 纵向滑动且内容可滚动，禁止RecyclerView拦截
                                 v.getParent().requestDisallowInterceptTouchEvent(true);
                                 isVertical = true;
+                                isDecided = true;
+                            } else if (dy > dx) {
+                                // 纵向滑动但内容不可滚动，允许RecyclerView拦截
+                                v.getParent().requestDisallowInterceptTouchEvent(false);
+                                isVertical = false;
                                 isDecided = true;
                             }
                         }
@@ -129,13 +137,9 @@ public class HitokotoCardAdapter extends RecyclerView.Adapter<HitokotoCardAdapte
                     case android.view.MotionEvent.ACTION_CANCEL:
                         v.getParent().requestDisallowInterceptTouchEvent(false);
                         isDecided = false;
-                        if (event.getActionMasked() == android.view.MotionEvent.ACTION_UP && !isVertical) {
-                            v.performClick();
-                        }
                         break;
                 }
-                // 纵向滑动时让TextView消费事件，横向时不消费
-                return isVertical;
+                return false;
             }
         });
     }

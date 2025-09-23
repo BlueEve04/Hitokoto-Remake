@@ -30,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
     private Map<Integer, Integer> colorCache = new HashMap<>();
     // 当前窗口维护的index列
     private LinkedList<Integer> windowIndices = new LinkedList<>();
+    private int lastCenter; // 用于永续滑动的中心卡片索引记录
 
 
 
@@ -103,67 +104,37 @@ public class MainActivity extends AppCompatActivity {
         updateWindowData();
         adapter.notifyDataSetChanged();
 
+        // 记录上一次中心卡片位置，初始为窗口中间
+        lastCenter = windowIndices.size() / 2;
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            private int lastCenterPos = 0; // 记录上一次的中心卡片位置
-
             @Override
-            //放弃懒加载.jpg
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                int first = layoutManager.findFirstVisibleItemPosition();
+                int last = layoutManager.findLastVisibleItemPosition();
+                int center = first + (last - first) / 2;
+                android.util.Log.d("CARD", "onScrolled: first=" + first + ", last=" + last + ", center=" + center + ", lastCenter=" + lastCenter);
+                if (center != lastCenter) {
+                    recyclerView.post(() -> {
+                        int newIdx = windowIndices.getLast() + 1;
+                        android.util.Log.d("CARD", "onScrolled(post): center changed, append card index=" + newIdx);
+                        windowIndices.addLast(newIdx);
+                        if (!contentCache.containsKey(newIdx)) {
+                            android.util.Log.d("CARD", "Load new card content for index=" + newIdx);
+                            contentCache.put(newIdx, HitokotoProvider.getRandomHitokoto(MainActivity.this));
+                            colorCache.put(newIdx, getRandomMonetColor());
+                        }
+                        updateWindowData();
+                        android.util.Log.d("CARD", "Adapter notifyDataSetChanged, total cards=" + windowIndices.size());
+                        adapter.notifyDataSetChanged();
+                        lastCenter = center;
+                    });
+                }
+            }
+            @Override
             public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
-
-                if (newState == RecyclerView.SCROLL_STATE_IDLE) { // 滚动停止时
-                    int first = layoutManager.findFirstVisibleItemPosition();
-                    int last = layoutManager.findLastVisibleItemPosition();
-                    int center = first + (last - first) / 2; // 当前中心卡片在windowIndices中的位置
-                    if (center < 0 || center >= windowIndices.size()) return;
-                    int centerGlobalIdx = windowIndices.get(center); // 当前中心卡片的全局索引
-
-                    // 1. 先补充两侧，保证center两侧各不少于9张
-                    while (windowIndices.getFirst() > centerGlobalIdx - 9) {
-                        int newIdx = windowIndices.getFirst() - 1;
-                        if (!contentCache.containsKey(newIdx)) {
-                            contentCache.put(newIdx, HitokotoProvider.getRandomHitokoto(MainActivity.this));
-                            colorCache.put(newIdx, getRandomMonetColor());
-                        }
-                        windowIndices.addFirst(newIdx);
-                    }
-                    while (windowIndices.getLast() < centerGlobalIdx + 9) {
-                        int newIdx = windowIndices.getLast() + 1;
-                        if (!contentCache.containsKey(newIdx)) {
-                            contentCache.put(newIdx, HitokotoProvider.getRandomHitokoto(MainActivity.this));
-                            colorCache.put(newIdx, getRandomMonetColor());
-                        }
-                        windowIndices.addLast(newIdx);
-                    }
-                    // 2. 再裁剪两侧，保证center两侧各不少于5张，且总长度不超过19
-                    while (windowIndices.size() > 19 && center - 1 > 5 && windowIndices.getFirst() < centerGlobalIdx - 9) {
-                        windowIndices.removeFirst();
-                        center--;
-                    }
-                    while (windowIndices.size() > 19 && windowIndices.size() - center - 1 > 5 && windowIndices.getLast() > centerGlobalIdx + 9) {
-                        windowIndices.removeLast();
-                    }
-                    // 3. 最后保证center两侧各不少于5张
-                    while (center < 5) {
-                        int newIdx = windowIndices.getFirst() - 1;
-                        if (!contentCache.containsKey(newIdx)) {
-                            contentCache.put(newIdx, HitokotoProvider.getRandomHitokoto(MainActivity.this));
-                            colorCache.put(newIdx, getRandomMonetColor());
-                        }
-                        windowIndices.addFirst(newIdx);
-                        center++;
-                    }
-                    while (windowIndices.size() - center - 1 < 5) {
-                        int newIdx = windowIndices.getLast() + 1;
-                        if (!contentCache.containsKey(newIdx)) {
-                            contentCache.put(newIdx, HitokotoProvider.getRandomHitokoto(MainActivity.this));
-                            colorCache.put(newIdx, getRandomMonetColor());
-                        }
-                        windowIndices.addLast(newIdx);
-                    }
-                    updateWindowData();
-                    adapter.notifyDataSetChanged();
-                }
+                android.util.Log.d("CARD", "onScrollStateChanged: newState=" + newState);
             }
         });
         ImageButton btnAction1 = findViewById(R.id.btnAction1);
@@ -222,6 +193,7 @@ public class MainActivity extends AppCompatActivity {
 
     // 更新adapter的数据
     private void updateWindowData() {
+        android.util.Log.d("CARD", "updateWindowData: windowIndices=" + windowIndices.toString());
         List<org.json.JSONObject> windowData = new ArrayList<>();
         List<Integer> windowColors = new ArrayList<>();
         for (int idx : windowIndices) {
