@@ -177,7 +177,7 @@ public class SettingsFragment extends Fragment {
         // 全部导出项
         SettingsItem exportItem = new SettingsItem(R.drawable.ic_export, "全部导出", "导出收藏到下载文件夹", SettingsItem.Type.NORMAL);
         exportItem.onClickListener = () -> {
-            new android.app.AlertDialog.Builder(requireContext())
+            new com.google.android.material.dialog.MaterialAlertDialogBuilder(requireContext())
                 .setTitle("导出收藏")
                 .setMessage("请选择导出位置：")
                 .setPositiveButton("系统Download目录", (dialog, which) -> exportToSystemDownload())

@@ -17,15 +17,16 @@
             android:id="@+id/fav_toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="?attr/colorSurface"
+            android:background="@color/setting_title_bg"
+            android:paddingBottom="10dp"
             app:title="收藏列表"
-            app:titleTextAppearance="@style/TextAppearance.Material3.TitleLarge"
             app:titleCentered="true"
-            android:elevation="4dp" />
+            app:titleTextAppearance="@style/TextAppearance.Material3.TitleLarge" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/favoriteRecycler"
             android:layout_width="match_parent"
+            android:layout_marginHorizontal="10dp"
             android:layout_height="0dp"
             android:layout_weight="1"
             android:clipToPadding="false"

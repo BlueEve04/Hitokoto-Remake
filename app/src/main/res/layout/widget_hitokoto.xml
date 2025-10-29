@@ -53,8 +53,8 @@
 
     <ImageButton
         android:id="@+id/btn_fav"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
         android:layout_alignParentBottom="true"
         android:layout_marginEnd="32dp"
         android:layout_marginBottom="0dp"
@@ -62,16 +62,18 @@
         android:background="@android:color/transparent"
         android:contentDescription="收藏"
         android:scaleType="fitCenter"
+        app:tint="@color/iconTint"
         android:src="@drawable/ic_favico" />
 
     <ImageButton
             android:id="@+id/btn_copy"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
             android:scaleType="fitCenter"
             android:layout_marginBottom="0dp"
             android:layout_alignParentBottom="true"
             android:layout_alignParentEnd="true"
+            app:tint="@color/iconTint"
             android:background="@android:color/transparent"
             android:src="@drawable/ic_cache"
             android:contentDescription="复制"/>

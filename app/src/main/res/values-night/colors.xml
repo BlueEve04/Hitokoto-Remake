@@ -23,6 +23,8 @@
     <color name="fab_icon">#F5F5F5</color>
     <color name="setting_title">#F5F5F5</color>
     <color name="setting_title_bg">#7F0D523F</color>
+    <color name="favorite_item_bg">#400D523F</color>
+
     <color name="setting_subtitle">#BDBDBD</color>
     <color name="txt_mostsmall">#32FFFFFF</color>
     <color name="setting_icon">#BDBDBD</color>

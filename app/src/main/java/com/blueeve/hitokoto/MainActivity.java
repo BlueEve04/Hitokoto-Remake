@@ -122,6 +122,7 @@ public class MainActivity extends AppCompatActivity {
                         if (!contentCache.containsKey(newIdx)) {
                             android.util.Log.d("CARD", "Load new card content for index=" + newIdx);
                             contentCache.put(newIdx, HitokotoProvider.getRandomHitokoto(MainActivity.this));
+                            // 新卡片颜色根据当前配色风格赋值
                             colorCache.put(newIdx, getRandomMonetColor());
                         }
                         updateWindowData();
@@ -251,12 +252,27 @@ public class MainActivity extends AppCompatActivity {
         int[] paletteMonet = {0xFFE5F1DF, 0xFFE7DFF1, 0xFFF1DFE0, 0xFFDFF1ED, 0xFFE1DFF1, 0xFFF0DFF1};
         int[] paletteVivid = {0xFFF44336, 0xFFE91E63, 0xFFFFEB3B, 0xFF00E676, 0xFF00B0FF, 0xFFFF5722};
         int colorStyle = SharedPreferenceManager.getColorStyle(this);
+        if (colorStyle == 2) { // 无色模式
+            int themeMode = SharedPreferenceManager.getThemeMode(this);
+            boolean isNight;
+            if (themeMode == android.app.UiModeManager.MODE_NIGHT_YES) {
+                isNight = true;
+            } else if (themeMode == android.app.UiModeManager.MODE_NIGHT_NO) {
+                isNight = false;
+            } else {
+                int nightModeFlags = getResources().getConfiguration().uiMode & android.content.res.Configuration.UI_MODE_NIGHT_MASK;
+                isNight = (nightModeFlags == android.content.res.Configuration.UI_MODE_NIGHT_YES);
+            }
+            if (isNight) {
+                return android.graphics.Color.parseColor("#222222"); // 深灰
+            } else {
+                return android.graphics.Color.parseColor("#FFFFFF"); // 白色
+            }
+        }
         int[] palette = (colorStyle == 1) ? paletteVivid : paletteMonet;
         int color = palette[(int)(Math.random() * palette.length)];
-        // 判断模式
         int nightModeFlags = getResources().getConfiguration().uiMode & android.content.res.Configuration.UI_MODE_NIGHT_MASK;
         if (nightModeFlags == android.content.res.Configuration.UI_MODE_NIGHT_YES) {
-            // 降低亮度
             float[] hsv = new float[3];
             android.graphics.Color.colorToHSV(color, hsv);
             hsv[2] = hsv[2] * 0.3f; // 降低亮度

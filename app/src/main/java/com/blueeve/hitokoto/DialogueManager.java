@@ -1,9 +1,10 @@
 package com.blueeve.hitokoto;
 
-import android.app.AlertDialog;
+import androidx.appcompat.app.AlertDialog;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.view.View;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 public class DialogueManager {
 
@@ -25,7 +26,7 @@ public class DialogueManager {
         if (buttonCount < 1 || buttonCount > 3 || buttonTexts == null || buttonTexts.length != buttonCount) {
             throw new IllegalArgumentException("按钮数量与文本不匹配，且按钮数量仅支持1~3");
         }
-        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(context);
         builder.setTitle(title);
         builder.setMessage(message);
 
@@ -45,7 +46,7 @@ public class DialogueManager {
             });
         }
 
-        AlertDialog dialog = builder.create();
+        androidx.appcompat.app.AlertDialog dialog = builder.create();
         if (background != null) {
             dialog.setOnShowListener(d -> {
                 dialog.getWindow().setBackgroundDrawable(background);
@@ -68,7 +69,7 @@ public class DialogueManager {
         if (buttonCount < 1 || buttonCount > 3 || buttonTexts == null || buttonTexts.length != buttonCount) {
             throw new IllegalArgumentException("按钮数量与文本不匹配，且按钮数量仅支持1~3");
         }
-        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(context);
         builder.setTitle(title);
         builder.setView(customView);
 
@@ -88,7 +89,7 @@ public class DialogueManager {
             });
         }
 
-        AlertDialog dialog = builder.create();
+        androidx.appcompat.app.AlertDialog dialog = builder.create();
         if (background != null) {
             dialog.setOnShowListener(d -> {
                 dialog.getWindow().setBackgroundDrawable(background);

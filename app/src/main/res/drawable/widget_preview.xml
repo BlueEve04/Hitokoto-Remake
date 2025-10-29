@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="250dp"
+    android:height="110dp"
+    android:viewportWidth="250"
+    android:viewportHeight="110">
+    
+    <!-- 背景 -->
+    <path
+        android:pathData="M12,0L238,0A12,12 0,0 1,250 12L250,98A12,12 0,0 1,238 110L12,110A12,12 0,0 1,0 98L0,12A12,12 0,0 1,12 0z"
+        android:fillColor="#FFFFFF"
+        android:strokeColor="#E0E0E0"
+        android:strokeWidth="1"/>
+    
+    <!-- 文本示例 -->
+    <path
+        android:pathData="M20,30 L230,30"
+        android:strokeColor="#CCCCCC"
+        android:strokeWidth="2"/>
+    <path
+        android:pathData="M20,45 L200,45"
+        android:strokeColor="#CCCCCC"
+        android:strokeWidth="2"/>
+    <path
+        android:pathData="M20,60 L180,60"
+        android:strokeColor="#CCCCCC"
+        android:strokeWidth="2"/>
+    
+    <!-- 作者位置 -->
+    <path
+        android:pathData="M180,85 L220,85"
+        android:strokeColor="#DDDDDD"
+        android:strokeWidth="1"/>
+    
+</vector>

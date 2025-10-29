@@ -1,6 +1,5 @@
 package com.blueeve.hitokoto;
 
-import android.app.AlertDialog;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import org.json.JSONObject;
 import java.util.List;
 
@@ -43,7 +43,7 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
             if (!fromWho.isEmpty()) msg.append("  ").append(fromWho);
             if (!creator.isEmpty()) msg.append("\n录入者: ").append(creator);
             String content = msg.toString();
-            new AlertDialog.Builder(context)
+            new MaterialAlertDialogBuilder(context)
                 .setTitle("收藏详情")
                 .setMessage(content)
                 .setPositiveButton("复制", (dialog, which) -> ClipboardUtil.copy(context, content))
@@ -52,7 +52,7 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
         });
         // 删除按钮点击事件
         holder.btnDelete.setOnClickListener(v -> {
-            new AlertDialog.Builder(context)
+            new MaterialAlertDialogBuilder(context)
                 .setTitle("删除收藏")
                 .setMessage("确定要删除该收藏吗？")
                 .setPositiveButton("删除", (dialog, which) -> {
@@ -73,7 +73,7 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
     }
     public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView tvIndex, tvContent, tvAuthor;
-        android.widget.ImageButton btnDelete;
+        android.widget.ImageView btnDelete;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             tvIndex = itemView.findViewById(R.id.tvIndex);

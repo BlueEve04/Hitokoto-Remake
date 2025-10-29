@@ -1,50 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:padding="12dp"
-    android:gravity="center_vertical">
+    android:layout_marginTop="8dp"
+    android:layout_marginHorizontal="10dp"
+    android:layout_marginBottom="8dp"
+    app:cardCornerRadius="16dp"
+    android:foreground="?attr/selectableItemBackground"
+    android:padding="0dp">
 
-    <TextView
-        android:id="@+id/tvIndex"
-        android:layout_width="32dp"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="1"
-        android:textStyle="bold"
-        android:textColor="@color/TextSecondary_fav"
-        android:gravity="center"/>
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:background="@color/favorite_item_bg"
+        android:padding="12dp">
 
-    <TextView
-        android:id="@+id/tvContent"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:ellipsize="marquee"
-        android:marqueeRepeatLimit="marquee_forever"
-        android:singleLine="true"
-        android:focusable="true"
-        android:focusableInTouchMode="true"
-        android:textColor="@color/TextPrimary"
-        android:textSize="20sp"
-        android:paddingStart="8dp"
-        android:paddingEnd="8dp"/>
+        <TextView
+            android:id="@+id/tvIndex"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:text="ID"
+            android:textStyle="bold"
+            android:textColor="@color/TextSecondary_fav"
+            android:gravity="center"
+            android:layout_marginEnd="8dp"/>
 
-    <TextView
-        android:id="@+id/tvAuthor"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/TextSecondary_fav"
-        android:textSize="16sp"
-        android:paddingStart="8dp"/>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/tvContent"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:text="测试文本"
+                android:ellipsize="marquee"
+                android:marqueeRepeatLimit="marquee_forever"
+                android:singleLine="false"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:textColor="@color/TextPrimary"
+                android:textSize="20sp"
+                android:paddingStart="0dp"
+                android:paddingEnd="0dp"/>
+            <com.google.android.material.divider.MaterialDivider
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginVertical="5dp"
+                android:layout_marginStart="0dp"
+                android:layout_marginEnd="0dp"/>
 
-    <ImageButton
-        android:id="@+id/btnDelete"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:src="@android:drawable/ic_menu_delete"
-        android:background="@android:color/transparent"
-        android:contentDescription="删除"
-        android:padding="4dp"/>
+            <TextView
+                android:id="@+id/tvAuthor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="0dp"
+                android:layout_marginEnd="0dp"
+                android:ellipsize="marquee"
 
-</LinearLayout>
+                android:focusable="true"
+                android:marqueeRepeatLimit="marquee_forever"
+                android:singleLine="true"
+                android:text="测试作者"
+                android:textColor="@color/TextSecondary_fav"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+        <ImageView
+            android:id="@+id/btnDelete"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:contentDescription="删除"
+            android:src="@android:drawable/ic_menu_delete"
+            app:tint="@color/TextSecondary_fav"
+            android:padding="0dp"
+            android:layout_marginStart="0dp"/>
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>
