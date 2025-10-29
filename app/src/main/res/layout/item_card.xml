@@ -15,45 +15,74 @@
 
         <TextView
             android:id="@+id/cardText"
-            android:fontFamily="@font/hrd"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
+            android:fontFamily="@font/hrd"
             android:gravity="center"
-            android:textSize="22sp"
-
-            android:scrollbars="vertical"
-            android:scrollbarStyle="insideInset"
             android:overScrollMode="always"
+
+            android:scrollbarStyle="insideInset"
+            android:scrollbars="vertical"
+            android:text="每日一言"
             android:textColor="@color/setting_title"
-            android:text="每日一言"/>
-
-        <TextView
-            android:id="@+id/cardFrom"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:textAlignment="viewEnd"
-            android:textColor="@color/setting_subtitle"
-            android:text="—— 出处"/>
-
-        <TextView
-            android:id="@+id/cardFromWho"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="14sp"
-            android:textAlignment="viewEnd"
-            android:textColor="@color/setting_subtitle"
-            android:text="角色/作者"/>
+            android:textSize="22sp" />
 
         <TextView
             android:id="@+id/cardCreator"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="12sp"
-            android:textAlignment="viewEnd"
-            android:textColor="@color/setting_subtitle"
-            android:text="录入者"/>
+            android:layout_marginTop="4dp"
+            android:gravity="center"
+            android:text="录入者"
+            android:textColor="@color/txt_mostsmall"
+            android:textSize="12sp" />
+        <com.google.android.material.divider.MaterialDivider
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginVertical="2dp"
+            android:backgroundTint="@color/setting_subtitle"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- 上方一行：左出处右作者 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:id="@+id/cardFrom"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="start"
+                    android:text="—— 出处"
+                    android:textColor="@color/setting_subtitle"
+                    android:textSize="16sp" />
+<!--    <com.google.android.material.divider.MaterialDivider-->
+<!--    android:layout_width="2dp"-->
+<!--        android:layout_height="match_parent"-->
+<!--        />-->
+                <TextView
+                    android:id="@+id/cardFromWho"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="角色/作者"
+                    android:gravity="end"
+                    android:textColor="@color/setting_subtitle"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <!-- 下方录入者居中 -->
+
+        </LinearLayout>
+
 
 
 

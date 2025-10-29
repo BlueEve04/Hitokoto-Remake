@@ -7,13 +7,13 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-
+    <color name="settings_item_bg">#3BADBBC8</color>
 
     <color name="button_cbg">#5BC5AA</color>
     <color name="TextPrimary">#000000</color>
     <color name="TextSecondary">#5B5B5B</color>
     <color name="TextSecondary_fav">#757575</color>
-    <color name="iconTint">#9E9E9E</color>
+    <color name="iconTint">#000000</color>
     <color name="background">#FFFFFFFF</color>
     <color name="surface">#FFF5F5F5</color>
     <color name="card_bg">#FFFFFFFF</color>
@@ -22,11 +22,13 @@
     <color name="fab_bg">#93BAB0</color>
     <color name="fab_icon">#212121</color>
     <color name="setting_title">#212121</color>
+    <color name="setting_title_bg">#AD52C8A0</color>
     <color name="setting_subtitle">#5B5B5B</color>
     <color name="setting_icon">#9E9E9E</color>
+    <color name="txt_mostsmall">#61000000</color>
     <color name="setting_right_icon">#BDBDBD</color>
-    <color name="switch_thumb">#93BAB0</color>
-    <color name="switch_track">#B2DFDB</color>
+    <color name="switch_thumb">#3C907A</color>
+    <color name="switch_track">#D0F6E3</color>
     <color name="dropdown_bg">#FFF5F5F5</color>
     <color name="dropdown_text">#212121</color>
     <color name="dropdown_icon">#9E9E9E</color>

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 public class SharedPreferenceManager {
+    private static final String IS_APP_OPENED="is_app_opened";
     private static final String PREF_NAME = "app_settings";
     private static final String KEY_COLORFUL_CARD = "colorful_card";
     private static final String KEY_THEME_MODE = "theme_mode";
@@ -11,6 +12,10 @@ public class SharedPreferenceManager {
     private static final String KEY_FONT_SIZE = "font_size";
     private static final String KEY_COLOR_STYLE = "color_style"; // 0=莫奈柔和, 1=鲜艳
     private static final String KEY_UPDATE_LEVEL = "update_level"; // 0= 未打开 1=打开过
+    public static boolean isAppOpened(Context context){
+        SharedPreferences prefs = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
+        return prefs.getBoolean(IS_APP_OPENED,false);
+    }
     public static boolean isColorfulCardEnabled(Context context) {
         SharedPreferences prefs = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
         return prefs.getBoolean(KEY_COLORFUL_CARD, true); // 默认开启彩色卡片

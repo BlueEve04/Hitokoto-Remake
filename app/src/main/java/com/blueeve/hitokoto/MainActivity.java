@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowInsetsController;
-import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -137,9 +137,9 @@ public class MainActivity extends AppCompatActivity {
                 android.util.Log.d("CARD", "onScrollStateChanged: newState=" + newState);
             }
         });
-        ImageButton btnAction1 = findViewById(R.id.btnAction1);
-        ImageButton btnAction2 = findViewById(R.id.btnAction2);
-        ImageButton btnAction3 = findViewById(R.id.btnAction3);
+        ImageView btnAction1 = findViewById(R.id.btnAction1);
+        ImageView btnAction2 = findViewById(R.id.btnAction2);
+        ImageView btnAction3 = findViewById(R.id.btnAction3);
         btnAction1.setOnClickListener(v -> {
             // 打开全屏文件Fragment
             findViewById(R.id.fragment_container).setVisibility(View.VISIBLE);
@@ -248,7 +248,7 @@ public class MainActivity extends AppCompatActivity {
 
     // 莫奈色生成接口，支持深浅色和配色风格啊啊啊啊啊啊我爱Monet
     public int getRandomMonetColor() {
-        int[] paletteMonet = {0xFFB39DDB, 0xFF80CBC4, 0xFFFFAB91, 0xFFA5D6A7, 0xFFFFF59D, 0xFFE57373};
+        int[] paletteMonet = {0xFFE5F1DF, 0xFFE7DFF1, 0xFFF1DFE0, 0xFFDFF1ED, 0xFFE1DFF1, 0xFFF0DFF1};
         int[] paletteVivid = {0xFFF44336, 0xFFE91E63, 0xFFFFEB3B, 0xFF00E676, 0xFF00B0FF, 0xFFFF5722};
         int colorStyle = SharedPreferenceManager.getColorStyle(this);
         int[] palette = (colorStyle == 1) ? paletteVivid : paletteMonet;
@@ -259,15 +259,29 @@ public class MainActivity extends AppCompatActivity {
             // 降低亮度
             float[] hsv = new float[3];
             android.graphics.Color.colorToHSV(color, hsv);
-            hsv[2] = hsv[2] * 0.6f; // 降低亮度
+            hsv[2] = hsv[2] * 0.3f; // 降低亮度
             color = android.graphics.Color.HSVToColor(android.graphics.Color.alpha(color), hsv);
         }
         return color;
     }
     // 切换配色风格后，所有卡片颜色立即生效
     public void refreshAllCardColors() {
-        for (Integer key : colorCache.keySet()) {
-            colorCache.put(key, getRandomMonetColor());
+        int colorStyle = SharedPreferenceManager.getColorStyle(this);
+        if (colorStyle == 2) { // 无色模式
+            int themeMode = SharedPreferenceManager.getThemeMode(this);
+            int color;
+            if (themeMode == android.app.UiModeManager.MODE_NIGHT_YES) {
+                color = android.graphics.Color.parseColor("#222222"); // 深灰
+            } else {
+                color = android.graphics.Color.parseColor("#FFFFFF"); // 白色
+            }
+            for (Integer key : colorCache.keySet()) {
+                colorCache.put(key, color);
+            }
+        } else {
+            for (Integer key : colorCache.keySet()) {
+                colorCache.put(key, getRandomMonetColor());
+            }
         }
         updateWindowData();
         if (adapter != null) {

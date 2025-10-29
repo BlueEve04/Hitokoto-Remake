@@ -7,7 +7,7 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-
+    <color name="settings_item_bg">#1E2123</color>
 
     <color name="button_cbg">#24594C</color>
     <color name="TextPrimary">#EBEBEB</color>
@@ -22,7 +22,9 @@
     <color name="fab_bg">#2D3A3A</color>
     <color name="fab_icon">#F5F5F5</color>
     <color name="setting_title">#F5F5F5</color>
+    <color name="setting_title_bg">#7F0D523F</color>
     <color name="setting_subtitle">#BDBDBD</color>
+    <color name="txt_mostsmall">#32FFFFFF</color>
     <color name="setting_icon">#BDBDBD</color>
     <color name="setting_right_icon">#757575</color>
     <color name="switch_thumb">#2D3A3A</color>

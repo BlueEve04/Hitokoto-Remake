@@ -11,7 +11,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.Spinner;
-import android.widget.Switch;
+import com.google.android.material.switchmaterial.SwitchMaterial;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -104,7 +104,7 @@ public class  SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewH
         TextView title;
         TextView subtitle;
         ImageView rightIcon;
-        Switch switchView;
+        SwitchMaterial switchView;
         Spinner dropdown;
 
         ViewHolder(View itemView) {

@@ -50,6 +50,22 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
                 .setNegativeButton("关闭", null)
                 .show();
         });
+        // 删除按钮点击事件
+        holder.btnDelete.setOnClickListener(v -> {
+            new AlertDialog.Builder(context)
+                .setTitle("删除收藏")
+                .setMessage("确定要删除该收藏吗？")
+                .setPositiveButton("删除", (dialog, which) -> {
+                    int pos = holder.getAdapterPosition();
+                    if (pos != RecyclerView.NO_POSITION) {
+                        data.remove(pos);
+                        notifyItemRemoved(pos);
+                        notifyItemRangeChanged(pos, data.size());
+                    }
+                })
+                .setNegativeButton("取消", null)
+                .show();
+        });
     }
     @Override
     public int getItemCount() {
@@ -57,11 +73,13 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
     }
     public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView tvIndex, tvContent, tvAuthor;
+        android.widget.ImageButton btnDelete;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             tvIndex = itemView.findViewById(R.id.tvIndex);
             tvContent = itemView.findViewById(R.id.tvContent);
             tvAuthor = itemView.findViewById(R.id.tvAuthor);
+            btnDelete = itemView.findViewById(R.id.btnDelete);
         }
     }
 }

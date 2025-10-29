@@ -1,5 +1,6 @@
 package com.blueeve.hitokoto;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,6 +31,7 @@ public class HitokotoCardAdapter extends RecyclerView.Adapter<HitokotoCardAdapte
         return new ViewHolder(view);
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         JSONObject obj = windowData.get(position);
@@ -68,9 +70,9 @@ public class HitokotoCardAdapter extends RecyclerView.Adapter<HitokotoCardAdapte
         // 字体大小设置
         int fontSize = SharedPreferenceManager.getFontSize(holder.itemView.getContext());
         holder.textView.setTextSize(android.util.TypedValue.COMPLEX_UNIT_SP, fontSize);
-        holder.fromView.setTextSize(android.util.TypedValue.COMPLEX_UNIT_SP, fontSize - 2);
-        holder.fromWhoView.setTextSize(android.util.TypedValue.COMPLEX_UNIT_SP, fontSize - 2);
-        holder.creatorView.setTextSize(android.util.TypedValue.COMPLEX_UNIT_SP, fontSize - 4);
+        holder.fromView.setTextSize(android.util.TypedValue.COMPLEX_UNIT_SP, 12);
+        holder.fromWhoView.setTextSize(android.util.TypedValue.COMPLEX_UNIT_SP, 12);
+        holder.creatorView.setTextSize(android.util.TypedValue.COMPLEX_UNIT_SP, 8);
         holder.setColor(color);
         // 长按弹窗，支持复制
         holder.itemView.setOnLongClickListener(v -> {

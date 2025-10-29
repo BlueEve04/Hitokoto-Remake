@@ -22,6 +22,14 @@ public class SettingsFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_settings, container, false);
+        // 获取状态栏高度并设置给标题栏
+        com.google.android.material.appbar.MaterialToolbar toolbar = view.findViewById(R.id.settings_toolbar);
+        int statusBarHeight = 0;
+        int resId = getResources().getIdentifier("status_bar_height", "dimen", "android");
+        if (resId > 0) {
+            statusBarHeight = getResources().getDimensionPixelSize(resId);
+        }
+        toolbar.setPadding(toolbar.getPaddingLeft(), statusBarHeight, toolbar.getPaddingRight(), toolbar.getPaddingBottom());
         RecyclerView recyclerView = view.findViewById(R.id.settings_recycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         List<SettingsItem> items = new ArrayList<>();
@@ -114,7 +122,7 @@ public class SettingsFragment extends Fragment {
         colorfulCardSwitch.switchChecked = SharedPreferenceManager.isColorfulCardEnabled(requireContext());
         colorfulCardSwitch.onSwitchChangedListener = checked -> {
             SharedPreferenceManager.setColorfulCardEnabled(requireContext(), checked);
-            // 通知��面刷新卡片
+
             if (getActivity() instanceof MainActivity) {
                 ((MainActivity) getActivity()).refreshCards();
             }
@@ -156,7 +164,7 @@ public class SettingsFragment extends Fragment {
         // 配色风格下拉项
         int colorStyle = SharedPreferenceManager.getColorStyle(requireContext());
         SettingsItem colorStyleDropdown = new SettingsItem(R.drawable.ic_comp, "配色风格", "切换卡片配色风格", SettingsItem.Type.DROPDOWN);
-        colorStyleDropdown.dropdownOptions = new String[]{"莫奈柔和", "鲜艳"};
+        colorStyleDropdown.dropdownOptions = new String[]{"莫奈柔和", "鲜艳", "无色"}; // 新增“无色”选项
         colorStyleDropdown.dropdownSelected = colorStyle;
         colorStyleDropdown.onDropdownChangedListener = idx -> {
             SharedPreferenceManager.setColorStyle(requireContext(), idx);

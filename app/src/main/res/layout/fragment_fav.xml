@@ -1,44 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_height="match_parent"
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:background="@color/fav_bg"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    app:cardElevation="0dp"
+    app:cardCornerRadius="0dp">
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/gdl20"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.23" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/gdl10"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.06" />
-    <TextView
-        android:id="@+id/favoriteTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="收藏列表"
-        android:fontFamily="@font/hrd"
-        android:textSize="90sp"
-        android:textStyle="bold"
-        android:textColor="@color/setting_title"
-        app:layout_constraintTop_toTopOf="@id/gdl10"
-        app:layout_constraintBottom_toTopOf="@id/favoriteRecycler"
-        app:layout_constraintStart_toStartOf="parent"/>
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/favoriteRecycler"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:clipToPadding="false"
-        android:padding="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/gdl20" />
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/fav_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/colorSurface"
+            app:title="收藏列表"
+            app:titleTextAppearance="@style/TextAppearance.Material3.TitleLarge"
+            app:titleCentered="true"
+            android:elevation="4dp" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/favoriteRecycler"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:clipToPadding="false"
+            android:paddingTop="16dp"
+            android:paddingBottom="16dp"
+            android:background="@android:color/transparent" />
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>

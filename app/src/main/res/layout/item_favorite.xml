@@ -38,5 +38,13 @@
         android:textSize="16sp"
         android:paddingStart="8dp"/>
 
-</LinearLayout>
+    <ImageButton
+        android:id="@+id/btnDelete"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@android:drawable/ic_menu_delete"
+        android:background="@android:color/transparent"
+        android:contentDescription="删除"
+        android:padding="4dp"/>
 
+</LinearLayout>
